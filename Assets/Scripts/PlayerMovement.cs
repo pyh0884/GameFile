@@ -5,14 +5,17 @@ using Rewired;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public int playerID = 10;
+    [HideInInspector]public int playerID = 10;
     private Player player;
+    private Rigidbody rb;
+    private Vector3 movement;
+    public float MoveSpeed;
     void Start()
     {
         player = ReInput.players.GetPlayer(playerID);
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         //if (player.GetButtonDown("Item2"))
@@ -21,7 +24,8 @@ public class PlayerMovement : MonoBehaviour
         //    items[1] = 0;
         //    FindObjectOfType<TopCanvas>().ChangeItem(playerID, items);
         //}
-        //movement.x = player.GetAxisRaw("MoveHorizontal");
-        //movement.y = player.GetAxisRaw("MoveVertical");
+        movement.x = player.GetAxisRaw("MoveHorizontal");
+        movement.z = player.GetAxisRaw("MoveVertical");
+        rb.position = (rb.position - movement * MoveSpeed * Time.fixedDeltaTime);
     }
 }
