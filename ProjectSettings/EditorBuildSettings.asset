@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Test_Scene2.unity
+    path: Assets/Scenes/Saddog_Test_Scene 1.unity
     guid: c854f155ecb43bc42abe266e55192ef7
   m_configObjects: {}
