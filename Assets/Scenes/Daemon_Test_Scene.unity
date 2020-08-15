@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 23027866}
   - component: {fileID: 23027865}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: "\u8BF4\u660EUI"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1275,6 +1275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoinNum: {fileID: 105120516}
   Coins: 0
+  TotalCoins: 15
 --- !u!4 &818571501
 Transform:
   m_ObjectHideFlags: 0
@@ -1339,7 +1340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1359,8 +1360,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "WASD: \u63A7\u5236P1\u79FB\u52A8                  \u4E0A\u4E0B\u5DE6\u53F3:
-    \u63A7\u5236P2\u79FB\u52A8\nJ:\u8DF3\u8DC3\t\t\t    \t\t\t\t\t   \u5C0F\u952E\u76D81\uFF1A\u8DF3\u8DC3\nK:\u51B2\u523A\t\t\t   
-    \t\t\t\t\t   \u5C0F\u952E\u76D82\uFF1A\u51B2\u523A"
+    \u63A7\u5236P2\u79FB\u52A8\nJ:\u8DF3\u8DC3\t\t\t    \t\t\t\t\t   \u5C0F\u952E\u76D81\uFF1A\u8DF3\u8DC3\nK:\u6254\u98DF\u7269\t\t   
+    \t\t\t\t\t   \u5C0F\u952E\u76D82\uFF1A\u6254\u98DF\u7269"
 --- !u!222 &857421737
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1646,6 +1647,15 @@ MonoBehaviour:
       _behaviorId: 0
       _userAssignable: 1
       _categoryId: 0
+    - _id: 5
+      _name: Throw
+      _type: 1
+      _descriptiveName: Throw
+      _positiveDescriptiveName: 
+      _negativeDescriptiveName: 
+      _behaviorId: 0
+      _userAssignable: 1
+      _categoryId: 0
     actionCategories:
     - _name: Default
       _descriptiveName: Default
@@ -1655,7 +1665,7 @@ MonoBehaviour:
     actionCategoryMap:
       list:
       - categoryId: 0
-        actionIds: 0000000001000000020000000300000004000000
+        actionIds: 000000000100000002000000030000000400000005000000
     inputBehaviors:
     - _id: 0
       _name: Default
@@ -1720,7 +1730,7 @@ MonoBehaviour:
       customControllerUid: 0
       actionElementMaps:
       - _actionCategoryId: 0
-        _actionId: 4
+        _actionId: 5
         _elementType: 0
         _elementIdentifierId: 0
         _axisRange: 0
@@ -2025,7 +2035,7 @@ MonoBehaviour:
         _modifierKey2: 0
         _modifierKey3: 0
       - _actionCategoryId: 0
-        _actionId: 4
+        _actionId: 5
         _elementType: 1
         _elementIdentifierId: -1
         _axisRange: 0
@@ -2131,7 +2141,7 @@ MonoBehaviour:
         _modifierKey2: 0
         _modifierKey3: 0
       - _actionCategoryId: 0
-        _actionId: 4
+        _actionId: 5
         _elementType: 1
         _elementIdentifierId: -1
         _axisRange: 0
@@ -2154,7 +2164,7 @@ MonoBehaviour:
     controllerMapLayoutManagerRuleSets: []
     controllerMapEnablerRuleSets: []
     playerIdCounter: 4
-    actionIdCounter: 5
+    actionIdCounter: 6
     actionCategoryIdCounter: 1
     inputBehaviorIdCounter: 1
     mapCategoryIdCounter: 2

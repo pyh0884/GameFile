@@ -13,8 +13,11 @@ public class PlayerMovement : MonoBehaviour
     private float initSpeed;
     private bool isJumping;
     public Transform[] GroundCheck;
+    public Transform ThrowCheck;
     public LayerMask GroundLayer;
+    public LayerMask ObstacleLayer;
     public GameObject dummy;
+    public GameObject food;
     private Camera camera;
     public float
         clampMarginMinX = 0.0f,
@@ -50,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         initSpeed = MoveSpeed;
         camera = FindObjectOfType<Camera>();
     }
+    //获取屏幕边界坐标
     public void getScreenData()
     {
         Ray MinX = camera.ScreenPointToRay(new Vector2(0 + clampMarginMinX, 0 + clampMarginMinY));
@@ -66,6 +70,12 @@ public class PlayerMovement : MonoBehaviour
             clampMaxY = hit.point.z;
         }
     }
+
+    //扔食物
+    public void Throw() 
+    {
+        Instantiate(food, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, null);
+    }
     private void Update()
     {
         if (isGround() && player.GetButtonDown("Jump"))
@@ -75,11 +85,11 @@ public class PlayerMovement : MonoBehaviour
             //rb.AddForce(new Vector3(0, 50, 0), ForceMode.Impulse);
             isJumping = true;
         }
-        if (player.GetButtonDown("Dash") && dashCDTimer <= 0)
+        if (player.GetButtonDown("Throw") && CanThrow())
         {
-            dashTimer = dashTime;
-            Dash();
-            dashCDTimer = dashCD;
+            //TODO:减少食物数量+判断食物不足时无法throw
+            //TODO:扔出食物时的动画特效etc
+            Throw();
         }
         if (dashCDTimer > 0) dashCDTimer -= Time.deltaTime;
         if (isDashing) dashTimer -= Time.deltaTime;
@@ -177,19 +187,16 @@ public class PlayerMovement : MonoBehaviour
             isPushing = false;
     }
 
-    void Dash()
+    /// 射线检测，判断是否可以扔食物
+    public bool CanThrow()
     {
-        //地面冲刺
-        if (isGround())
+        bool isHit = true;
+        Debug.DrawLine(ThrowCheck.position, new Vector3(ThrowCheck.position.x, ThrowCheck.position.y - 1, ThrowCheck.position.z+2), Color.blue);
+        if (Physics.Linecast(ThrowCheck.position, new Vector3(ThrowCheck.position.x, ThrowCheck.position.y - 1, ThrowCheck.position.z+2), ObstacleLayer))
         {
-            isDashing = true;
+            isHit = false;
         }
-        //空中冲刺
-        else
-        {
-            isDashing = true;
-            //rb.useGravity = false;
-        }
+        return isHit;
     }
     /// 射线检测，判断是否在地面上
     public bool isGround()
