@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 using Rewired;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [HideInInspector] public int playerID = 10;
+    public int playerID = 10;
     private Player player;
     private Rigidbody rb;
     private Vector3 movement;
@@ -20,11 +21,13 @@ public class PlayerMovement : MonoBehaviour
     private float dashCDTimer;
     public Transform[] GroundCheck;
     public LayerMask GroundLayer;
+    public GameObject dummy;
     void Start()
     {
         player = ReInput.players.GetPlayer(playerID);
         rb = GetComponent<Rigidbody>();
         initSpeed = MoveSpeed;
+        FindObjectOfType<CinemachineTargetGroup>().AddMember(gameObject.transform, 1, 0);
     }
     private void Update()
     {
@@ -75,6 +78,22 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    private void OnDestroy()
+    {
+        var dum = Instantiate(dummy, transform.position, Quaternion.identity);
+        if (dum)
+        {
+            //TODO: 将Dummy缓慢移动到复活点
+            dum.GetComponent<DummyAI>().destination = new Vector3(125, 1.5f, 335);
+            dum.transform.parent = null;
+            var targetGroup = FindObjectOfType<CinemachineTargetGroup>();
+            if (targetGroup)
+            {
+                targetGroup.AddMember(dum.transform, 1, 0);
+                targetGroup.RemoveMember(gameObject.transform);
+            }
+        }
+    }
     void Dash() 
     {
         //地面冲刺
@@ -89,7 +108,6 @@ public class PlayerMovement : MonoBehaviour
             //rb.useGravity = false;
         }
     }
-    #region Data Part
     /// <summary>
     /// 射线检测，判断是否在地面上
     /// </summary>
@@ -105,7 +123,5 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         return isHit;
-    #endregion
-
     }
 }

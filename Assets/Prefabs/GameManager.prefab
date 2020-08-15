@@ -46,6 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPaused: 0
   pauseMenu: {fileID: 8941721089178090679}
+  Player1: {fileID: 0}
+  PlayerModel: {fileID: 6182871863412438791, guid: 12bc8b84023268841a16ad5abc25c38e,
+    type: 3}
+  Player2: {fileID: 0}
+  ReviveTime: 3
 --- !u!1001 &8043611383770944161
 PrefabInstance:
   m_ObjectHideFlags: 0
