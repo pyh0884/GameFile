@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Saddog_Test_Scene 1.unity
+    path: Assets/Scenes/Saddog_Menu_Scene.unity
     guid: c854f155ecb43bc42abe266e55192ef7
+  - enabled: 1
+    path: Assets/Scenes/Saddog_Loading_Scene.unity
+    guid: 3fe63e9e46688b54d87e870b00a7b2a7
+  - enabled: 1
+    path: Assets/Scenes/Daemon_Test_Scene 1.unity
+    guid: 2b7231933421b6b45b4ff630bd65b274
+  - enabled: 1
+    path: Assets/Scenes/Saddog_Gaming_Scene.unity
+    guid: 130de47ff0199094fb23b8999dd642f0
   m_configObjects: {}
