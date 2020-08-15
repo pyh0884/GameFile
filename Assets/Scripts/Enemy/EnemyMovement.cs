@@ -53,6 +53,17 @@ public class EnemyMovement : MonoBehaviour
             Destroy(other.gameObject);
             FindTarget();
         }
+        if (other.gameObject.layer == 10)
+        {
+            //吃掉食物
+            Destroy(other.gameObject);
+            FindTarget();
+        }
+            //摧毁障碍物
+        if (other.gameObject.layer == 11)
+        {
+            Destroy(other.gameObject);
+        }
     }
     private void Update()
     {
