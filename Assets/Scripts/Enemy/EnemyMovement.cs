@@ -73,8 +73,8 @@ public class EnemyMovement : MonoBehaviour
                 //TODO:玩家死亡效果
                 Destroy(other.gameObject);
                 StartCoroutine("ConsumeFood");
-                FindTarget();
             }
+            else FindTarget();
         }
         if (other.gameObject.layer == 10)
         {

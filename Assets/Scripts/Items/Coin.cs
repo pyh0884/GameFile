@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    private CoinManager CoinManager;
+    private GamingScene gamingScene;
     public int CoinValue;
     void Start()
     {
-        CoinManager = FindObjectOfType<CoinManager>();
+        gamingScene = FindObjectOfType<GamingScene>();
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 9)
-            CoinManager.AddCoin(CoinValue);
+            gamingScene.AddCoin(CoinValue, other.GetComponent<PlayerMovement>().playerID);
         Destroy(gameObject);
     }
 }

@@ -7,42 +7,26 @@ using System;
 
 public class MenuScene : MonoBehaviour
 {
-    public GameObject ui;
-    private Animator animator;
-    private bool ifend = false;
-  
-
-    void Start()
-    {
-        ui = GameObject.Find("UI");
-        animator = ui.GetComponent<Animator>();
-    }
-    public void loadgame()
-    {
-        SceneManager.LoadScene("Saddog_Gaming_Scene");
-    }
-
-    void PlayShowAnimation()
-    {
-        animator.SetBool("isShow", false);
-    }
+    public Animator animator;
+    private float clipTime;
+    private static List<AnimatorClipInfo> clipList = new List<AnimatorClipInfo>();
     public void Click()
     {
         Debug.Log("Button Clicked");
-        GameManager.instance.PlayAnimation(animator, PlayShowAnimation, loadgame);
-        //animator.SetBool("isShow", false);
-        //ifend = true;
-        //animator.GetCurrentAnimatorClipInfo(0, clipList);
-        //AnimationClip m_clip = clipList[0].clip;
-        //clipTime = m_clip.length;     
+        playAnimation(animator);
     }
 
-
-
-    void Update()
+    public void playAnimation(Animator animator)
     {
-
+        StartCoroutine(playAnim(animator));
     }
 
-
+    public static IEnumerator playAnim(Animator animator)
+    {
+        animator.SetBool("isShow", false);
+        animator.GetCurrentAnimatorClipInfo(0, clipList);
+        AnimationClip m_clip = clipList[0].clip;
+        yield return new WaitForSeconds(m_clip.length);
+        SceneManager.LoadScene(1);
+    }
 }

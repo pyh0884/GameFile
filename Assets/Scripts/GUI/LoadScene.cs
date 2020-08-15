@@ -9,9 +9,9 @@ public class LoadScene : MonoBehaviour
     public Image progressBar;
     private int curProgressValue = 0;
 
-    void LoadMenu ()
+    void LoadMenu()
     {
-        SceneManager.LoadScene("Saddog_Menu_Scene");
+        SceneManager.LoadScene(2);
     }
     void FixedUpdate()
     {
@@ -29,7 +29,7 @@ public class LoadScene : MonoBehaviour
         if (curProgressValue == 100)
         {
             loadingText.text = "OK";//文本显示完成OK
-            Invoke("LoadMenu",2);
+            LoadMenu();
         }
     }
 }
