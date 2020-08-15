@@ -6,22 +6,27 @@ using Rewired;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public int playerID = 10;
-    private Player player;
+
     private Rigidbody rb;
     private Vector3 movement;
     public float MoveSpeed;
     private float initSpeed;
     private bool isJumping;
+    public Transform[] GroundCheck;
+    public LayerMask GroundLayer;
+    public GameObject dummy;
+
+    //冲刺相关
     private bool isDashing;
     public float dashTime;
     private float dashTimer;
     public float dashSpeed;
     public float dashCD;
     private float dashCDTimer;
-    public Transform[] GroundCheck;
-    public LayerMask GroundLayer;
-    public GameObject dummy;
+
+    //输入相关
+    public int playerID = 10;
+    private Player player;
     void Start()
     {
         player = ReInput.players.GetPlayer(playerID);
@@ -31,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (isGround()&&player.GetButtonDown("Jump"))
+        if (isGround() && player.GetButtonDown("Jump"))
         {
             //rb.velocity = new Vector3(rb.velocity.x, 50, rb.velocity.z);
             rb.velocity += Vector3.up * 10;
@@ -66,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
         ///修改坐标精确位移，可能会出现穿模
         rb.position = (rb.position + movement * MoveSpeed * Time.fixedDeltaTime);
         //rb.AddForce(movement * MoveSpeed * Time.fixedDeltaTime); ---带有惯性的移动
+
         //冲刺
         if (isDashing)
         {
@@ -83,7 +89,6 @@ public class PlayerMovement : MonoBehaviour
         var dum = Instantiate(dummy, transform.position, Quaternion.identity);
         if (dum)
         {
-            //TODO: 将Dummy缓慢移动到复活点
             dum.GetComponent<DummyAI>().destination = new Vector3(125, 1.5f, 335);
             dum.transform.parent = null;
             var targetGroup = FindObjectOfType<CinemachineTargetGroup>();
@@ -94,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    void Dash() 
+    void Dash()
     {
         //地面冲刺
         if (isGround())
@@ -108,9 +113,7 @@ public class PlayerMovement : MonoBehaviour
             //rb.useGravity = false;
         }
     }
-    /// <summary>
     /// 射线检测，判断是否在地面上
-    /// </summary>
     public bool isGround()
     {
         bool isHit = false;

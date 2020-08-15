@@ -5,12 +5,19 @@ using Rewired;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    //暂停菜单
     public bool isPaused;
     public GameObject pauseMenu;
-    public GameObject Player1;
+    
+    //玩家死亡复活相关
     public GameObject PlayerModel;
+    public int PlayerLives = 3;
+    public GameObject Player1;
+    public int P1Lifes = 3;
     private float P1ReviveTimer = 0;
     public GameObject Player2;
+    public int P2Lifes = 3;
     private float P2ReviveTimer = 0;
     public float ReviveTime = 3;
     private void Awake()
@@ -23,6 +30,11 @@ public class GameManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
+    }
+    private void Start()
+    {
+        P1Lifes = PlayerLives;
+        P2Lifes = PlayerLives;
     }
     public void PauseToggle()
     {
@@ -52,7 +64,7 @@ public class GameManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!Player1)
+        if (!Player1 && P1Lifes > 0)
         {
             P1ReviveTimer += Time.fixedDeltaTime;
             if (P1ReviveTimer >= ReviveTime)
@@ -61,9 +73,10 @@ public class GameManager : MonoBehaviour
                 Player1 = player1;
                 player1.GetComponent<PlayerMovement>().playerID = 0;
                 P1ReviveTimer -= ReviveTime;
+                P1Lifes -= 1;
             }
         }
-        if (!Player2)
+        if (!Player2 && P2Lifes > 0)
         {
             P2ReviveTimer += Time.fixedDeltaTime;
             if (P2ReviveTimer >= ReviveTime)
@@ -72,9 +85,8 @@ public class GameManager : MonoBehaviour
                 Player2 = player2;
                 player2.GetComponent<PlayerMovement>().playerID = 1;
                 P2ReviveTimer -= ReviveTime;
+                P1Lifes -= 1;
             }
         }
     }
-
-
 }

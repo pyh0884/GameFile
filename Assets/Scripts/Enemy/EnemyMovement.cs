@@ -19,13 +19,13 @@ public class EnemyMovement : MonoBehaviour
     private Collider FindTarget()
     {
         Collider[] foodList = Physics.OverlapBox(gameObject.transform.position, WarningArea, Quaternion.identity, FoodLayer);
-        Collider[] playerList = Physics.OverlapBox(gameObject.transform.position, WarningArea, Quaternion.identity, PlayerLayer);        
+        Collider[] playerList = Physics.OverlapBox(gameObject.transform.position, WarningArea, Quaternion.identity, PlayerLayer);
         if (foodList.Length > 0)
         {
             nearestTarget = foodList[0];
             foreach (Collider col in foodList)
             {
-                if ((col.transform.position - transform.position).magnitude < (nearestTarget.transform.position - transform.position).magnitude) 
+                if ((col.transform.position - transform.position).magnitude < (nearestTarget.transform.position - transform.position).magnitude)
                 {
                     nearestTarget = col;
                 }
@@ -61,7 +61,7 @@ public class EnemyMovement : MonoBehaviour
             CheckTimer -= CheckTargetTime;
             FindTarget();
         }
-        
+
     }
     void FixedUpdate()
     {
