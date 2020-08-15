@@ -21,7 +21,8 @@ public class Store : MonoBehaviour
     {
         if (other.gameObject.layer == playerLayer)
         {
-            other.gameObject.GetComponent<PlayerMovement>().inShop = true;
+            other.GetComponent<PlayerMovement>().inShop = true;
+            Debug.Log(other.name + " entered the store.");
         }
     }
 
@@ -29,7 +30,8 @@ public class Store : MonoBehaviour
     {
         if (other.gameObject.layer == playerLayer)
         {
-            other.gameObject.GetComponent<PlayerMovement>().inShop = false;
+            other.GetComponent<PlayerMovement>().inShop = false;
+            Debug.Log(other.name + " exited the store.");
         }
     }
 }

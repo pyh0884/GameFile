@@ -68,10 +68,13 @@ public class EnemyMovement : MonoBehaviour
     {
         if (other.gameObject.layer == 9)
         {
-            //TODO:玩家死亡效果
-            Destroy(other.gameObject);
-            StartCoroutine("ConsumeFood");
-            FindTarget();
+            if (!other.GetComponent<PlayerMovement>().inShop)
+            {
+                //TODO:玩家死亡效果
+                Destroy(other.gameObject);
+                StartCoroutine("ConsumeFood");
+                FindTarget();
+            }
         }
         if (other.gameObject.layer == 10)
         {
