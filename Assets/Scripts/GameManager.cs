@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
             isPaused = false;
         }
         //Unpause
-        else 
+        else
         {
             Time.timeScale = 0;
             pauseMenu.SetActive(true);
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
             P1ReviveTimer += Time.fixedDeltaTime;
             if (P1ReviveTimer >= ReviveTime)
             {
-                var player1 = Instantiate(PlayerModel, new Vector3(115,1.5f,335), Quaternion.identity,null);
+                var player1 = Instantiate(PlayerModel, new Vector3(115, 1.5f, 335), Quaternion.identity, null);
                 Player1 = player1;
                 player1.GetComponent<PlayerMovement>().playerID = 0;
                 P1ReviveTimer -= ReviveTime;
@@ -75,4 +75,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+
 }
