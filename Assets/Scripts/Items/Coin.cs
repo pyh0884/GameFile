@@ -13,7 +13,9 @@ public class Coin : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 9)
+        {
             gamingScene.AddCoin(CoinValue, other.GetComponent<PlayerMovement>().playerID);
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 }
