@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5619627323031788909}
   - component: {fileID: 5619627323031788910}
   - component: {fileID: 5619627323031788911}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SlowDownTrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6090698442923492665}
   - component: {fileID: 8143450246467630179}
   - component: {fileID: 1309565610508541581}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 3243348347621577584}
   - component: {fileID: 3243348347621577585}
   - component: {fileID: 3243348347621577587}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DoorOpeningOverTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
