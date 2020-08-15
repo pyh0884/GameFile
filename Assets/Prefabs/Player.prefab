@@ -264,7 +264,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 64
   m_CollisionDetection: 0
 --- !u!114 &6182871863412438785
 MonoBehaviour:
@@ -278,11 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a33fc1e434cb9d4ebdee0d22935e672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 0
   MoveSpeed: 20
-  dashTime: 0
-  dashSpeed: 0
-  dashCD: 0
   GroundCheck:
   - {fileID: 653873144713329730}
   - {fileID: 3930634097944821811}
@@ -292,3 +288,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   dummy: {fileID: 4353427485011822553, guid: 1cf34a4c167af2c48bade14b2e460370, type: 3}
+  clampMarginMinX: 40
+  clampMarginMaxX: 40
+  clampMarginMinY: 40
+  clampMarginMaxY: 40
+  dashTime: 0.2
+  dashSpeed: 60
+  dashCD: 2
+  playerID: 0

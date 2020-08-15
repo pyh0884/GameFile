@@ -15,7 +15,17 @@ public class PlayerMovement : MonoBehaviour
     public Transform[] GroundCheck;
     public LayerMask GroundLayer;
     public GameObject dummy;
-
+    private Camera camera;
+    public float
+        clampMarginMinX = 0.0f,
+        clampMarginMaxX = 0.0f,
+        clampMarginMinY = 0.0f,
+        clampMarginMaxY = 0.0f;
+    private float
+        clampMinX,
+        clampMaxX,
+        clampMinY,
+        clampMaxY;
     //冲刺相关
     private bool isDashing;
     public float dashTime;
@@ -27,12 +37,32 @@ public class PlayerMovement : MonoBehaviour
     //输入相关
     public int playerID = 10;
     private Player player;
+    private void Awake()
+    {
+        FindObjectOfType<CinemachineTargetGroup>().AddMember(gameObject.transform, 1, 0);
+    }
     void Start()
     {
         player = ReInput.players.GetPlayer(playerID);
         rb = GetComponent<Rigidbody>();
         initSpeed = MoveSpeed;
-        FindObjectOfType<CinemachineTargetGroup>().AddMember(gameObject.transform, 1, 0);
+        camera = FindObjectOfType<Camera>();
+    }
+    public void getScreenData()
+    {
+        Ray MinX = camera.ScreenPointToRay(new Vector2(0 + clampMarginMinX, 0 + clampMarginMinY));
+        Ray MaxX = camera.ScreenPointToRay(new Vector2(Screen.width - clampMarginMaxX, Screen.height - clampMarginMaxY));
+        RaycastHit hit;
+        if (Physics.Raycast(MinX, out hit,Mathf.Infinity,GroundLayer))
+        {
+            clampMinX = hit.point.x;
+            clampMinY = hit.point.z;
+        }
+        if (Physics.Raycast(MaxX, out hit, Mathf.Infinity, GroundLayer))
+        {
+            clampMaxX = hit.point.x;
+            clampMaxY = hit.point.z;
+        }
     }
     private void Update()
     {
@@ -51,6 +81,13 @@ public class PlayerMovement : MonoBehaviour
         }
         if (dashCDTimer > 0) dashCDTimer -= Time.deltaTime;
         if (isDashing) dashTimer -= Time.deltaTime;
+        //if (screenSize != camera.ScreenToWorldPoint(new Vector3(camera.pixelWidth, camera.pixelHeight)))
+        //{
+        //    var bottomLeft = camera.ScreenToWorldPoint(Vector3.zero);
+        //    screenSize = camera.ScreenToWorldPoint(new Vector3(camera.pixelWidth, camera.pixelHeight));
+        //    cameraRect = new float[] { bottomLeft.x, bottomLeft.y, screenSize.x - bottomLeft.x, screenSize.y - bottomLeft.y };
+        //    Debug.Log(cameraRect);
+        //}
     }
     // 所有关于物理的运算全部放在FixedUpdate中
     void FixedUpdate()
@@ -68,8 +105,30 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector3(0, 0, 0);
         }
+        if (rb.position.x < clampMinX && camera.fieldOfView == 30)
+        {
+            Debug.Log(clampMinX);
+            movement.x = Mathf.Clamp(movement.x, 0, 1);
+        }
+        else if (rb.position.x > clampMaxX && camera.fieldOfView == 30)
+        {
+            Debug.Log(clampMaxX);
+            movement.x = Mathf.Clamp(movement.x, -1, 0);
+        }
+        if (rb.position.z < clampMinY && camera.fieldOfView == 30)
+        {
+            Debug.Log(clampMinY);
+            movement.z = Mathf.Clamp(movement.z, 0, 1);
+        }
+        else if (rb.position.z > clampMaxY && camera.fieldOfView == 30)
+        {
+            Debug.Log(clampMaxY);
+            movement.z = Mathf.Clamp(movement.z, -1, 0);
+        }
         ///修改坐标精确位移，可能会出现穿模
-        rb.position = (rb.position + movement * MoveSpeed * Time.fixedDeltaTime);
+        rb.position = (rb.position + movement.normalized * MoveSpeed * Time.fixedDeltaTime);
+        //rb.position = new Vector3(Mathf.Clamp(rb.position.x, clampMinX, clampMaxX), rb.position.y, Mathf.Clamp(rb.position.z, clampMinY, clampMaxY));
+        
         //rb.AddForce(movement * MoveSpeed * Time.fixedDeltaTime); ---带有惯性的移动
 
         //冲刺
@@ -83,6 +142,10 @@ public class PlayerMovement : MonoBehaviour
                 //rb.useGravity = true;
             }
         }
+    }
+    private void LateUpdate()
+    {
+        getScreenData();
     }
     private void OnDestroy()
     {
