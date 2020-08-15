@@ -7,6 +7,7 @@ public class CoinManager : MonoBehaviour
 {
     public Text CoinNum;
     public int Coins = 0;
+    public int TotalCoins = 15;
     void Start()
     {
         Coins = 0;
@@ -18,5 +19,9 @@ public class CoinManager : MonoBehaviour
     void Update()
     {
         CoinNum.text = "Coins: " + Coins;
+        if (Coins >= TotalCoins) 
+        {
+            FindObjectOfType<GameManager>().Win();
+        }
     }
 }

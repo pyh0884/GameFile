@@ -61,7 +61,10 @@ public class GameManager : MonoBehaviour
         {
             PauseToggle();
         }
-
+        if (P1Lifes == 0 && P2Lifes == 0)
+        {
+            Lose();
+        }
     }
     private void FixedUpdate()
     {
@@ -86,11 +89,19 @@ public class GameManager : MonoBehaviour
                 Player2 = player2;
                 player2.GetComponent<PlayerMovement>().playerID = 1;
                 P2ReviveTimer -= ReviveTime;
-                P1Lifes -= 1;
+                P2Lifes -= 1;
             }
         }
     }
 
+    public void Win() 
+    {
+        Debug.Log("YOU WIN!!!");
+    }
+    public void Lose() 
+    {
+        Debug.Log("YOU LOSE!!!");
+    }
 
     #region 动画控制
     private float clipTime;
