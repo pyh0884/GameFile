@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-
+   
     public bool isOpen = false;
+    
 
     private Animator doorAnimator;
     // Start is called before the first frame update
