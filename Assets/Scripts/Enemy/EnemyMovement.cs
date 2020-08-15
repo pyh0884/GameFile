@@ -37,7 +37,7 @@ public class EnemyMovement : MonoBehaviour
             nearestTarget = playerList[0];
             foreach (Collider col in playerList)
             {
-                if ((col.transform.position - transform.position).magnitude < (nearestTarget.transform.position - transform.position).magnitude)
+                if ((col.transform.position - transform.position).magnitude < (nearestTarget.transform.position - transform.position).magnitude && !col.gameObject.GetComponent<PlayerMovement>().inShop)
                 {
                     nearestTarget = col;
                 }

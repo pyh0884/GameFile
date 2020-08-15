@@ -28,11 +28,13 @@ public class PlayerMovement : MonoBehaviour
         clampMaxY;
     //冲刺相关
     private bool isDashing;
+    public bool inShop;
     public float dashTime;
     private float dashTimer;
     public float dashSpeed;
     public float dashCD;
     private float dashCDTimer;
+    public bool isPushing;
 
     //输入相关
     public int playerID = 10;
@@ -162,6 +164,18 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 9)
+            isPushing = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.layer == 9)
+            isPushing = false;
+    }
+
     void Dash()
     {
         //地面冲刺
