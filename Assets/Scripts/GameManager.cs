@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
-        pauseMenu.SetActive(false);
     }
     public void PauseToggle()
     {
