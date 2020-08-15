@@ -1,0 +1,76 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyMovement : MonoBehaviour
+{
+    public LayerMask FoodLayer;
+    public LayerMask PlayerLayer;
+    public Vector3 WarningArea;
+    public float CheckTargetTime = 2;
+    private float CheckTimer = 0;
+    private Collider nearestTarget = null;
+    private Rigidbody rb;
+    public float MoveSpeed;
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+    private Collider FindTarget()
+    {
+        Collider[] foodList = Physics.OverlapBox(gameObject.transform.position, WarningArea, Quaternion.identity, FoodLayer);
+        Collider[] playerList = Physics.OverlapBox(gameObject.transform.position, WarningArea, Quaternion.identity, PlayerLayer);
+        if (foodList.Length > 0)
+        {
+            nearestTarget = foodList[0];
+            foreach (Collider col in foodList)
+            {
+                if ((col.transform.position - transform.position).magnitude < (nearestTarget.transform.position - transform.position).magnitude)
+                {
+                    nearestTarget = col;
+                }
+            }
+        }
+        else if (playerList.Length > 0)
+        {
+            nearestTarget = playerList[0];
+            foreach (Collider col in playerList)
+            {
+                if ((col.transform.position - transform.position).magnitude < (nearestTarget.transform.position - transform.position).magnitude)
+                {
+                    nearestTarget = col;
+                }
+            }
+        }
+        return nearestTarget;
+    }
+    // 碰到玩家后，玩家死亡
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 9)
+        {
+            //TODO:玩家死亡效果
+            Destroy(other.gameObject);
+            FindTarget();
+        }
+    }
+    private void Update()
+    {
+        if (CheckTimer > CheckTargetTime)
+        {
+            CheckTimer -= CheckTargetTime;
+            FindTarget();
+        }
+
+    }
+    void FixedUpdate()
+    {
+        CheckTimer += Time.fixedDeltaTime;
+        if (nearestTarget)
+        {
+            Vector3 direction = (nearestTarget.transform.position - transform.position).normalized;
+            //追踪
+            rb.position = (rb.position + direction * MoveSpeed * Time.fixedDeltaTime);
+        }
+    }
+}
