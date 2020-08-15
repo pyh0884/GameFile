@@ -26,6 +26,10 @@ public class EnemyMovement : MonoBehaviour
             nearestTarget = foodList[0];
             foreach (Collider col in foodList)
             {
+                if (!nearestTarget)
+                {
+                    nearestTarget = col;
+                }
                 if ((col.transform.position - transform.position).magnitude < (nearestTarget.transform.position - transform.position).magnitude)
                 {
                     nearestTarget = col;
@@ -37,7 +41,11 @@ public class EnemyMovement : MonoBehaviour
             nearestTarget = playerList[0];
             foreach (Collider col in playerList)
             {
-                if ((col.transform.position - transform.position).magnitude < (nearestTarget.transform.position - transform.position).magnitude && !col.gameObject.GetComponent<PlayerMovement>().inShop)
+                if (!nearestTarget)
+                {
+                    nearestTarget = col;
+                }
+                if ((col.transform.position - transform.position).magnitude < (nearestTarget.transform.position - transform.position).magnitude && !col.GetComponent<PlayerMovement>().inShop)
                 {
                     nearestTarget = col;
                 }
@@ -48,6 +56,7 @@ public class EnemyMovement : MonoBehaviour
     public IEnumerator ConsumeFood()
     {
         transform.localScale *= 2;
+        nearestTarget = null;
         GetComponent<Collider>().enabled = false;
         yield return new WaitForSeconds(ConsumeTime);
         FindTarget();
@@ -61,6 +70,7 @@ public class EnemyMovement : MonoBehaviour
         {
             //TODO:玩家死亡效果
             Destroy(other.gameObject);
+            StartCoroutine("ConsumeFood");
             FindTarget();
         }
         if (other.gameObject.layer == 10)

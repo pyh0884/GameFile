@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         clampMaxY;
     //冲刺相关
     private bool isDashing;
-    public bool inShop;
+    public bool inShop = false;
     public float dashTime;
     private float dashTimer;
     public float dashSpeed;
