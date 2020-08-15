@@ -8,10 +8,11 @@ public class EnemyMovement : MonoBehaviour
     public LayerMask PlayerLayer;
     public Vector3 WarningArea;
     public float CheckTargetTime = 2;
-    private float CheckTimer = 0;
+    private float CheckTimer = 2;
     private Collider nearestTarget = null;
     private Rigidbody rb;
     public float MoveSpeed;
+    public float ConsumeTime = 3;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -44,6 +45,15 @@ public class EnemyMovement : MonoBehaviour
         }
         return nearestTarget;
     }
+    public IEnumerator ConsumeFood()
+    {
+        transform.localScale *= 2;
+        GetComponent<Collider>().enabled = false;
+        yield return new WaitForSeconds(ConsumeTime);
+        FindTarget();
+        GetComponent<Collider>().enabled = true;
+    }
+
     // 碰到玩家后，玩家死亡
     private void OnTriggerEnter(Collider other)
     {
@@ -57,9 +67,9 @@ public class EnemyMovement : MonoBehaviour
         {
             //吃掉食物
             Destroy(other.gameObject);
-            FindTarget();
+            StartCoroutine("ConsumeFood");
         }
-            //摧毁障碍物
+        //摧毁障碍物
         if (other.gameObject.layer == 11)
         {
             Destroy(other.gameObject);
