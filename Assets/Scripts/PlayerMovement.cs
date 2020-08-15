@@ -61,8 +61,8 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector3(0, 0, 0);
         }
         ///修改坐标精确位移，可能会出现穿模
-        rb.position = (rb.position - movement * MoveSpeed * Time.fixedDeltaTime);
-        //rb.AddForce(-movement * MoveSpeed * Time.fixedDeltaTime); ---带有惯性的移动
+        rb.position = (rb.position + movement * MoveSpeed * Time.fixedDeltaTime);
+        //rb.AddForce(movement * MoveSpeed * Time.fixedDeltaTime); ---带有惯性的移动
         //冲刺
         if (isDashing)
         {
