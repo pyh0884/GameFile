@@ -15,7 +15,6 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody rb;
     public float MoveSpeed;
     public float ConsumeTime = 3;
-    public AudioClip[] cracks;
     public AudioClip swallow;
     private AudioSource asrc;
     public GameObject countDownCanvas;
@@ -24,11 +23,6 @@ public class EnemyMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         asrc = GetComponent<AudioSource>();
-    }
-
-    void Awake()
-    {
-        //asrc.Play(cracks[System.Random.Next(3)]);
     }
 
     private Collider FindTarget()
