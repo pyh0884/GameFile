@@ -5,6 +5,7 @@ using UnityEngine;
 public class Store : MonoBehaviour
 {
     private int playerLayer;
+    public int foodCost = 4;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class Store : MonoBehaviour
         if (other.gameObject.layer == playerLayer)
         {
             other.GetComponent<PlayerMovement>().inShop = true;
+            FindObjectOfType<GamingScene>().checkCoins(other.GetComponent<PlayerMovement>().playerID, foodCost);
             Debug.Log(other.name + " entered the store.");
         }
     }

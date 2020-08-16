@@ -69,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
     public void Throw() 
     {
         Instantiate(food, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, null);
+        FindObjectOfType<GamingScene>().addFood(playerID, -1);
     }
     private void Update()
     {
@@ -81,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (player.GetButtonDown("Throw") && CanThrow())
         {
-            //TODO:减少食物数量+判断食物不足时无法throw
+            Debug.Log("Throw Food");
             //TODO:扔出食物时的动画特效etc
             Throw();
         }
@@ -176,6 +177,16 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.Linecast(ThrowCheck.position, new Vector3(ThrowCheck.position.x, ThrowCheck.position.y - 1, ThrowCheck.position.z+2), ObstacleLayer))
         {
             isHit = false;
+        }
+        if (playerID == 0)
+        {
+            if (FindObjectOfType<GamingScene>().Food1 <= 0)
+                isHit = false;
+        }
+        else
+        {
+            if (FindObjectOfType<GamingScene>().Food2 <= 0)
+                isHit = false;
         }
         return isHit;
     }
