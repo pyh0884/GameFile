@@ -124,6 +124,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c79f0020bc7e924489c501a04ec0c9bd, type: 3}
   - {fileID: 8300000, guid: f923119392db7eb45813b466fb1aff1c, type: 3}
   swallow: {fileID: 8300000, guid: a584a2262f700744584572359af046bd, type: 3}
+  countDownCanvas: {fileID: 62040022517788724, guid: 5c911a1e8d3bc4942ad66d356276ea7d,
+    type: 3}
 --- !u!54 &115563734606059760
 Rigidbody:
   m_ObjectHideFlags: 0

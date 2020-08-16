@@ -17,6 +17,7 @@ public class EnemyMovement : MonoBehaviour
     public AudioClip[] cracks;
     public AudioClip swallow;
     private AudioSource asrc;
+    public GameObject countDownCanvas;
 
     void Start()
     {
@@ -79,7 +80,6 @@ public class EnemyMovement : MonoBehaviour
         nearestTarget = null;
         isConsuming = true;
         GetComponent<Collider>().enabled = false;
-        Debug.Log("wait!");
         yield return new WaitForSeconds(deltaTime);
         isConsuming = false;
         FindTarget();
@@ -95,6 +95,10 @@ public class EnemyMovement : MonoBehaviour
             {
                 //TODO:玩家死亡效果
                 other.GetComponent<PlayerMovement>().createDummy(new Vector3(125, 1.5f, 335));
+                var clock = Instantiate(countDownCanvas, 
+                    new Vector3(other.transform.position.x, other.transform.position.y + 10, other.transform.position.z),
+                    Quaternion.identity, null);
+                clock.GetComponent<Canvas>().worldCamera = FindObjectOfType<Camera>();
                 Destroy(other.GetComponent<PlayerMovement>());
                 other.GetComponent<Collider>().isTrigger = true;
                 Destroy(other.gameObject, 2);
