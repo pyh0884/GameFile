@@ -12,6 +12,7 @@ public class Store : MonoBehaviour
     void Start()
     {
         playerLayer = LayerMask.NameToLayer("Player");
+        asrc = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

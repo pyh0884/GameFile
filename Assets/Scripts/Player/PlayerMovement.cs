@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
     //音效相关
     private AudioSource asrc;
     public AudioClip throwFood;
-    public AudioClip steps;
     //输入相关
     public int playerID = 10;
     private Player player;
@@ -50,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         initSpeed = MoveSpeed;
         camera = FindObjectOfType<Camera>();
         asrc = GetComponent<AudioSource>();
+  
     }
     //获取屏幕边界坐标
     public void getScreenData()
@@ -132,6 +132,12 @@ public class PlayerMovement : MonoBehaviour
         ///修改坐标精确位移，可能会出现穿模
         rb.position = (rb.position + movement.normalized * MoveSpeed * Time.fixedDeltaTime);
         transform.LookAt(transform.position + movement);
+
+        // Mute steps when not moving;
+        if (movement.x == 0 && movement.z == 0)
+        {
+            //Mute steps;
+        }
         //rb.position = new Vector3(Mathf.Clamp(rb.position.x, clampMinX, clampMaxX), rb.position.y, Mathf.Clamp(rb.position.z, clampMinY, clampMaxY));
         
         //rb.AddForce(movement * MoveSpeed * Time.fixedDeltaTime); ---带有惯性的移动
