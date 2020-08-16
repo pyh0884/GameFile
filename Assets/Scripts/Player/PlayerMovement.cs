@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private Vector3 movement;
     public float MoveSpeed;
-    private float initSpeed;
+    public float initSpeed;
     private bool isJumping;
     public Transform[] GroundCheck;
     public Transform ThrowCheck;
@@ -30,13 +30,7 @@ public class PlayerMovement : MonoBehaviour
         clampMinY,
         clampMaxY;
     //冲刺相关
-    private bool isDashing;
     public bool inShop = false;
-    public float dashTime;
-    private float dashTimer;
-    public float dashSpeed;
-    public float dashCD;
-    private float dashCDTimer;
     public bool isPushing;
 
     //输入相关
@@ -91,15 +85,6 @@ public class PlayerMovement : MonoBehaviour
             //TODO:扔出食物时的动画特效etc
             Throw();
         }
-        if (dashCDTimer > 0) dashCDTimer -= Time.deltaTime;
-        if (isDashing) dashTimer -= Time.deltaTime;
-        //if (screenSize != camera.ScreenToWorldPoint(new Vector3(camera.pixelWidth, camera.pixelHeight)))
-        //{
-        //    var bottomLeft = camera.ScreenToWorldPoint(Vector3.zero);
-        //    screenSize = camera.ScreenToWorldPoint(new Vector3(camera.pixelWidth, camera.pixelHeight));
-        //    cameraRect = new float[] { bottomLeft.x, bottomLeft.y, screenSize.x - bottomLeft.x, screenSize.y - bottomLeft.y };
-        //    Debug.Log(cameraRect);
-        //}
     }
     // 所有关于物理的运算全部放在FixedUpdate中
     void FixedUpdate()
@@ -117,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector3(0, 0, 0);
         }
+
         if (rb.position.x < clampMinX && camera.fieldOfView == 30)
         {
             Debug.Log(clampMinX);
@@ -143,36 +129,31 @@ public class PlayerMovement : MonoBehaviour
         //rb.position = new Vector3(Mathf.Clamp(rb.position.x, clampMinX, clampMaxX), rb.position.y, Mathf.Clamp(rb.position.z, clampMinY, clampMaxY));
         
         //rb.AddForce(movement * MoveSpeed * Time.fixedDeltaTime); ---带有惯性的移动
-
-        //冲刺
-        if (isDashing)
-        {
-            MoveSpeed = dashSpeed;
-            if (dashTimer <= 0)
-            {
-                MoveSpeed = initSpeed;
-                isDashing = false;
-                //rb.useGravity = true;
-            }
-        }
     }
     private void LateUpdate()
     {
         getScreenData();
     }
-    private void OnDestroy()
+    public void createDummy(Vector3 pos)
     {
         var dum = Instantiate(dummy, transform.position, Quaternion.identity);
         if (dum)
         {
-            dum.GetComponent<DummyAI>().destination = new Vector3(125, 1.5f, 335);
+            dum.GetComponent<DummyAI>().destination = pos;
             dum.transform.parent = null;
             var targetGroup = FindObjectOfType<CinemachineTargetGroup>();
             if (targetGroup)
             {
                 targetGroup.AddMember(dum.transform, 1, 0);
-                targetGroup.RemoveMember(gameObject.transform);
             }
+        }
+    }
+    private void OnDestroy()
+    {
+        var targetGroup = FindObjectOfType<CinemachineTargetGroup>();
+        if (targetGroup)
+        {
+            targetGroup.RemoveMember(gameObject.transform);
         }
     }
     private void OnCollisionEnter(Collision collision)
