@@ -72,7 +72,9 @@ public class EnemyMovement : MonoBehaviour
             {
                 //TODO:玩家死亡效果
                 other.GetComponent<PlayerMovement>().createDummy(new Vector3(125, 1.5f, 335));
-                Destroy(other.gameObject);
+                Destroy(other.GetComponent<PlayerMovement>());
+                other.GetComponent<Collider>().isTrigger = true;
+                Destroy(other.gameObject,2);
                 StartCoroutine("ConsumeFood");
             }
             else FindTarget();
@@ -80,13 +82,15 @@ public class EnemyMovement : MonoBehaviour
         if (other.gameObject.layer == 10)
         {
             //吃掉食物
-            Destroy(other.gameObject);
+            other.GetComponent<Rigidbody>().useGravity = true;
+            Destroy(other.gameObject, 2);
             StartCoroutine("ConsumeFood");
         }
         //摧毁障碍物
         if (other.gameObject.layer == 11)
         {
-            Destroy(other.gameObject);
+            other.gameObject.GetComponent<Fall>().fall();
+            Destroy(other.gameObject, 2);
         }
     }
     private void Update()
