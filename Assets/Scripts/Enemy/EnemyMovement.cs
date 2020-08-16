@@ -123,7 +123,7 @@ public class EnemyMovement : MonoBehaviour
         //摧毁障碍物
         if (other.gameObject.layer == 11)
         {
-            other.gameObject.GetComponent<Fall>().fall();
+            other.gameObject.GetComponentInParent<Fall>().fall(transform.position);
             Destroy(other.gameObject, 2);
             asrc.PlayOneShot(swallow);
         }
