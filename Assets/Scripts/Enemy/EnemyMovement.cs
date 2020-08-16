@@ -71,6 +71,7 @@ public class EnemyMovement : MonoBehaviour
             if (!other.GetComponent<PlayerMovement>().inShop)
             {
                 //TODO:玩家死亡效果
+                other.GetComponent<PlayerMovement>().createDummy(new Vector3(125, 1.5f, 335));
                 Destroy(other.gameObject);
                 StartCoroutine("ConsumeFood");
             }
