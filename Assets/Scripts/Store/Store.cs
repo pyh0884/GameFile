@@ -5,12 +5,11 @@ using UnityEngine;
 public class Store : MonoBehaviour
 {
     public int foodCost = 4;
-    private AudioSource asrc;
-    public AudioClip buyFood;
+    
     // Start is called before the first frame update
     void Start()
     {
-        asrc = GetComponent<AudioSource>();
+       
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -18,7 +17,6 @@ public class Store : MonoBehaviour
         {
             other.GetComponent<PlayerMovement>().inShop = true;
             FindObjectOfType<GamingScene>().checkCoins(other.GetComponent<PlayerMovement>().playerID, foodCost);
-            asrc.PlayOneShot(buyFood);
             Debug.Log(other.name + " entered the store.");
         }
     }
