@@ -24,7 +24,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Cubemap:
-        m_Texture: {fileID: 8900000, guid: 3dcc3ec4aa59a47dda5f377b5aa86147, type: 3}
+        m_Texture: {fileID: 8900000, guid: 88bd364555f9d47338af740e336eced6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -72,7 +72,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RefractAmount: 1
-    - _RefractRatio: 0.963
+    - _RefractRatio: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
