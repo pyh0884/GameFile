@@ -1222,8 +1222,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 1.5, z: 1}
-  m_Center: {x: 0, y: 0.25, z: -0.1}
+  m_Size: {x: 0.75, y: 3.9411106, z: 1.8007822}
+  m_Center: {x: 0, y: 1.0351934, z: 0.3003912}
 --- !u!54 &5178146007886123327
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1254,11 +1254,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 20
   initSpeed: 0
-  GroundCheck:
-  - {fileID: 1946266703353764473}
-  - {fileID: 2638523937253123592}
-  - {fileID: 3183373748046556876}
-  - {fileID: 3938972322082190006}
   ThrowCheck: {fileID: 1385136953861538795}
   GroundLayer:
     serializedVersion: 2
