@@ -9,12 +9,13 @@ public class CountDown : MonoBehaviour
     public float countDown=3;
     private float countDownTimer = 3;
     private Camera camera;
+ 
     void Start()
     {
         camera = FindObjectOfType<Camera>();
         countDownTimer = countDown;
         slider.value = 1;
-        Destroy(gameObject, countDown);
+        Destroy(gameObject, (countDown + 2));
     }
 
     void FixedUpdate()

@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
     public int P2Lifes = 3;
     private float P2ReviveTimer = 0;
     public float ReviveTime = 3;
+
+    private AudioSource audio;
+    public AudioClip loseAud;
+    public AudioClip winAud;
+
     private void Awake()
     {
         if (instance == null)
@@ -38,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         P1Lifes = PlayerLives;
         P2Lifes = PlayerLives;
+        audio = GetComponent<AudioSource>();
     }
     public void PauseToggle()
     {
@@ -99,9 +105,11 @@ public class GameManager : MonoBehaviour
     public void Win() 
     {
         Debug.Log("YOU WIN!!!");
+        audio.PlayOneShot(winAud);
     }
     public void Lose() 
     {
         Debug.Log("YOU LOSE!!!");
+        audio.PlayOneShot(loseAud);
     }
 }
