@@ -57,7 +57,7 @@ MonoBehaviour:
   P2Lifes: 3
   ReviveTime: 3
   loseAud: {fileID: 8300000, guid: 2a32e78894c126a44a8fd2ecb0ea5393, type: 3}
-  winAud: {fileID: 0}
+  winAud: {fileID: 8300000, guid: 9750659614d14ac4b8e9c3497da77d82, type: 3}
 --- !u!82 &4563543078932085558
 AudioSource:
   m_ObjectHideFlags: 0

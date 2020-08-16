@@ -21,6 +21,10 @@ public class GamingScene : MonoBehaviour
     public int Food2;
     private int coinsCollected = 0;
     public int TotalCoins = 15;
+
+    private AudioSource asrc;
+    public AudioClip buyFood;
+
     void Start()
     {
         Coins1 = 0;
@@ -29,6 +33,7 @@ public class GamingScene : MonoBehaviour
         Food2 = 0;
         RefreshCoins();
         RefreshFood();
+        asrc = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -92,6 +97,7 @@ public class GamingScene : MonoBehaviour
             Food1 += num;
         else if (id == 1)
             Food2 += num;
+        asrc.PlayOneShot(buyFood);
         RefreshFood();
     }
     void RefreshHealth()

@@ -3489,6 +3489,7 @@ MonoBehaviour:
   Food1: 0
   Food2: 0
   TotalCoins: 15
+  buyFood: {fileID: 8300000, guid: b83982af391772442ab537ba760335cf, type: 3}
 --- !u!4 &1761092168
 Transform:
   m_ObjectHideFlags: 0
