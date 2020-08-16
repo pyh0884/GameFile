@@ -19,7 +19,7 @@ public class SlowDownTrap : MonoBehaviour
     {
         if(other.gameObject.layer == playerLayer)
         {
-            other.gameObject.GetComponent<PlayerMovement>().MoveSpeed = playerSpeed * slowDownPercentage;            
+            other.gameObject.GetComponent<PlayerMovement>().MoveSpeed *= slowDownPercentage;
         }
     }
 
@@ -27,7 +27,7 @@ public class SlowDownTrap : MonoBehaviour
     {
         if (other.gameObject.layer == playerLayer)
         {            
-            other.gameObject.GetComponent<PlayerMovement>().MoveSpeed = other.gameObject.GetComponent<PlayerMovement>().initSpeed;           
+            other.gameObject.GetComponent<PlayerMovement>().MoveSpeed = other.gameObject.GetComponent<PlayerMovement>().initSpeed;
         }
     }
 }
