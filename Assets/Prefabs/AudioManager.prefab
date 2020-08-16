@@ -43,20 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430d3e15a4fc887479879033b2144873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audios:
-  - name: MenuLoop
-    clip: {fileID: 8300000, guid: 6f42ce2d2485612418f5fd7c3dcf04a8, type: 3}
-    volume: 0
-    pitch: 0
-    loop: 1
-    source: {fileID: 0}
-    mute: 0
-    mixer: {fileID: 0}
-  - name: PlayLoop
-    clip: {fileID: 8300000, guid: 8bdc6222394ed984b8fb3539a0ecd836, type: 3}
-    volume: 0
-    pitch: 0
-    loop: 1
-    source: {fileID: 0}
-    mute: 0
-    mixer: {fileID: 0}
+  audios: []

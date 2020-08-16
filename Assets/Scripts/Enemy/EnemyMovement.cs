@@ -14,9 +14,14 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody rb;
     public float MoveSpeed;
     public float ConsumeTime = 3;
+    public AudioClip[] cracks;
+    public AudioClip swallow;
+    private AudioSource asrc;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        asrc = GetComponent<AudioSource>();
     }
     private Collider FindTarget()
     {
@@ -67,6 +72,7 @@ public class EnemyMovement : MonoBehaviour
         isConsuming = false;
         FindTarget();
         GetComponent<Collider>().enabled = true;
+        asrc.PlayOneShot(swallow);
     }
     public IEnumerator ConsumePeople(float deltaTime)
     {
@@ -78,6 +84,7 @@ public class EnemyMovement : MonoBehaviour
         isConsuming = false;
         FindTarget();
         GetComponent<Collider>().enabled = true;
+        asrc.PlayOneShot(swallow);
     }
     // 碰到玩家后，玩家死亡
     private void OnTriggerEnter(Collider other)
@@ -107,6 +114,7 @@ public class EnemyMovement : MonoBehaviour
         {
             other.gameObject.GetComponent<Fall>().fall();
             Destroy(other.gameObject, 2);
+            asrc.PlayOneShot(swallow);
         }
     }
     private void Update()
