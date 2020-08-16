@@ -69,22 +69,22 @@ public class EnemyMovement : MonoBehaviour
         transform.localScale *= 2;
         isConsuming = true;
         GetComponent<Collider>().enabled = false;
+        asrc.PlayOneShot(swallow);
         yield return new WaitForSeconds(ConsumeTime);
         isConsuming = false;
         FindTarget();
         GetComponent<Collider>().enabled = true;
-        asrc.PlayOneShot(swallow);
     }
     public IEnumerator ConsumePeople(float deltaTime)
     {
         nearestTarget = null;
         isConsuming = true;
         GetComponent<Collider>().enabled = false;
+        asrc.PlayOneShot(swallow);
         yield return new WaitForSeconds(deltaTime);
         isConsuming = false;
         FindTarget();
         GetComponent<Collider>().enabled = true;
-        asrc.PlayOneShot(swallow);
     }
     // 碰到玩家后，玩家死亡
     private void OnTriggerEnter(Collider other)
