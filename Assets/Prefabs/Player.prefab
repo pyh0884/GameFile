@@ -304,6 +304,7 @@ MonoBehaviour:
   inShop: 0
   isPushing: 0
   throwFood: {fileID: 8300000, guid: 9750659614d14ac4b8e9c3497da77d82, type: 3}
+  steps: {fileID: 8300000, guid: a418c1aee5c47b24cb25353f773a52c4, type: 3}
   playerID: 0
 --- !u!82 &-7108763816893090871
 AudioSource:

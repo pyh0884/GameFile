@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     //音效相关
     private AudioSource asrc;
     public AudioClip throwFood;
+    public AudioClip steps;
     //输入相关
     public int playerID = 10;
     private Player player;
