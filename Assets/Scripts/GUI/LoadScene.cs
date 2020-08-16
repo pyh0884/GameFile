@@ -22,7 +22,7 @@ public class LoadScene : MonoBehaviour
             curProgressValue++;
         }
 
-        loadingText.text = "正在努力加载..." + curProgressValue + "%";//实时更新进度百分比的文本显示  
+        loadingText.text = "Loading..." + curProgressValue + "%";//实时更新进度百分比的文本显示  
 
         progressBar.fillAmount = curProgressValue / 100f;//实时更新滑动进度图片的fillAmount值  
 

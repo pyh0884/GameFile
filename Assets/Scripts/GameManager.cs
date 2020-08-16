@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     private AudioSource audio;
     public AudioClip loseAud;
     public AudioClip winAud;
+    public GameObject WinMenu;
+    public GameObject LoseMenu;
 
     private void Awake()
     {
@@ -101,15 +103,24 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+    public void BacktoMain() 
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+        Destroy(gameObject);
+    }
     public void Win() 
     {
+        Time.timeScale = 0;
         Debug.Log("YOU WIN!!!");
         audio.PlayOneShot(winAud);
+        WinMenu.SetActive(true);
     }
     public void Lose() 
     {
+        Time.timeScale = 0;
         Debug.Log("YOU LOSE!!!");
         audio.PlayOneShot(loseAud);
+        LoseMenu.SetActive(true);
     }
 }

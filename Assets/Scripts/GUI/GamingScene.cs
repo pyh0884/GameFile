@@ -115,7 +115,7 @@ public class GamingScene : MonoBehaviour
             health2.GetChild(i - 1).gameObject.SetActive(true);
         }
     }
-
+    
     void TestMinusBlood()
     {
         if (Input.GetKeyDown(KeyCode.Q))
