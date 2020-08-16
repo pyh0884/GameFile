@@ -48,7 +48,7 @@ MonoBehaviour:
   isPaused: 0
   pauseMenu: {fileID: 8941721089178090679}
   RevivePosition: {x: 125, y: 1.5, z: 335}
-  PlayerModel: {fileID: 6182871863412438791, guid: 12bc8b84023268841a16ad5abc25c38e,
+  PlayerModel: {fileID: 5178146007886123324, guid: 016557a69f8a4455c9bb87e750808d70,
     type: 3}
   PlayerLives: 3
   Player1: {fileID: 0}

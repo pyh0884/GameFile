@@ -39,12 +39,14 @@ public class PlayerMovement : MonoBehaviour
     //输入相关
     public int playerID = 10;
     private Player player;
+    private Animator anim;
     private void Awake()
     {
         FindObjectOfType<CinemachineTargetGroup>().AddMember(gameObject.transform, 1, 0);
     }
     void Start()
     {
+        anim = GetComponent<Animator>();
         player = ReInput.players.GetPlayer(playerID);
         rb = GetComponent<Rigidbody>();
         initSpeed = MoveSpeed;
@@ -138,9 +140,11 @@ public class PlayerMovement : MonoBehaviour
         if (movement.x == 0 && movement.z == 0)
         {
             steps.mute = true;
+            anim.SetBool("running", false);
         } else
         {
             steps.mute = false;
+            anim.SetBool("running", true);
         }
         //rb.position = new Vector3(Mathf.Clamp(rb.position.x, clampMinX, clampMaxX), rb.position.y, Mathf.Clamp(rb.position.z, clampMinY, clampMaxY));
         

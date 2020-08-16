@@ -99,15 +99,13 @@ public class EnemyMovement : MonoBehaviour
         {
             if (!other.GetComponent<PlayerMovement>().inShop)
             {
-                //TODO:玩家死亡效果
                 other.GetComponent<PlayerMovement>().createDummy(new Vector3(125, 1.5f, 335));
                 var clock = Instantiate(countDownCanvas, 
                     new Vector3(other.transform.position.x, other.transform.position.y + 10, other.transform.position.z),
                     Quaternion.identity, null);
                 clock.GetComponent<Canvas>().worldCamera = FindObjectOfType<Camera>();
-                Destroy(other.GetComponent<PlayerMovement>());
                 other.GetComponent<Collider>().isTrigger = true;
-                Destroy(other.gameObject, 2);
+                Destroy(other.gameObject);
                 StartCoroutine(ConsumePeople(2));
             }
             else FindTarget();
