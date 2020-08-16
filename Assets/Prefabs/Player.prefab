@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 20
+  initSpeed: 0
   GroundCheck:
   - {fileID: 653873144713329730}
   - {fileID: 3930634097944821811}
@@ -301,10 +302,8 @@ MonoBehaviour:
   clampMarginMinY: 80
   clampMarginMaxY: 80
   inShop: 0
-  dashTime: 0.2
-  dashSpeed: 60
-  dashCD: 2
   isPushing: 0
+  throwFood: {fileID: 8300000, guid: 9750659614d14ac4b8e9c3497da77d82, type: 3}
   playerID: 0
 --- !u!82 &-7108763816893090871
 AudioSource:
@@ -317,7 +316,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 4ff3bb69da022784087124f91b8b6fa9,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: f8031922574bbe04ab37157ade86be5a, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

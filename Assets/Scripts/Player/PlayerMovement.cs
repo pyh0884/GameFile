@@ -32,7 +32,9 @@ public class PlayerMovement : MonoBehaviour
     //冲刺相关
     public bool inShop = false;
     public bool isPushing;
-
+    //音效相关
+    private AudioSource asrc;
+    public AudioClip throwFood;
     //输入相关
     public int playerID = 10;
     private Player player;
@@ -46,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         initSpeed = MoveSpeed;
         camera = FindObjectOfType<Camera>();
+        asrc = GetComponent<AudioSource>();
     }
     //获取屏幕边界坐标
     public void getScreenData()
@@ -70,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Instantiate(food, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, null);
         FindObjectOfType<GamingScene>().addFood(playerID, -1);
+        asrc.PlayOneShot(throwFood);
     }
     private void Update()
     {

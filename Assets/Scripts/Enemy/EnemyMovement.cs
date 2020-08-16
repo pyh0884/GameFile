@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +25,12 @@ public class EnemyMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         asrc = GetComponent<AudioSource>();
     }
+
+    void Awake()
+    {
+        //asrc.Play(cracks[System.Random.Next(3)]);
+    }
+
     private Collider FindTarget()
     {
         Collider[] foodList = Physics.OverlapBox(gameObject.transform.position, WarningArea, Quaternion.identity, FoodLayer);
