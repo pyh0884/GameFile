@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isPushing;
     //音效相关
     private AudioSource asrc;
+    public AudioSource steps;
     public AudioClip throwFood;
     //输入相关
     public int playerID = 10;
@@ -136,7 +137,10 @@ public class PlayerMovement : MonoBehaviour
         // Mute steps when not moving;
         if (movement.x == 0 && movement.z == 0)
         {
-            //Mute steps;
+            steps.mute = true;
+        } else
+        {
+            steps.mute = false;
         }
         //rb.position = new Vector3(Mathf.Clamp(rb.position.x, clampMinX, clampMaxX), rb.position.y, Mathf.Clamp(rb.position.z, clampMinY, clampMaxY));
         
