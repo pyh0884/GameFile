@@ -10,6 +10,7 @@ public class EnemyMovement : MonoBehaviour
     public float CheckTargetTime = 2;
     private float CheckTimer = 2;
     private Collider nearestTarget = null;
+    private bool isConsuming;
     private Rigidbody rb;
     public float MoveSpeed;
     public float ConsumeTime = 3;
@@ -30,7 +31,7 @@ public class EnemyMovement : MonoBehaviour
                 {
                     nearestTarget = col;
                 }
-                if ((col.transform.position - transform.position).magnitude < (nearestTarget.transform.position - transform.position).magnitude)
+                else if ((col.transform.position - transform.position).magnitude < (nearestTarget.transform.position - transform.position).magnitude)
                 {
                     nearestTarget = col;
                 }
@@ -41,13 +42,16 @@ public class EnemyMovement : MonoBehaviour
             nearestTarget = playerList[0];
             foreach (Collider col in playerList)
             {
-                if (!nearestTarget)
+                if (col.GetComponent<PlayerMovement>())
                 {
-                    nearestTarget = col;
-                }
-                if ((col.transform.position - transform.position).magnitude < (nearestTarget.transform.position - transform.position).magnitude && !col.GetComponent<PlayerMovement>().inShop)
-                {
-                    nearestTarget = col;
+                    if (!nearestTarget)
+                    {
+                        nearestTarget = col;
+                    }
+                    else if ((col.transform.position - transform.position).magnitude < (nearestTarget.transform.position - transform.position).magnitude && !col.GetComponent<PlayerMovement>().inShop)
+                    {
+                        nearestTarget = col;
+                    }
                 }
             }
         }
@@ -55,14 +59,26 @@ public class EnemyMovement : MonoBehaviour
     }
     public IEnumerator ConsumeFood()
     {
-        transform.localScale *= 2;
         nearestTarget = null;
+        transform.localScale *= 2;
+        isConsuming = true;
         GetComponent<Collider>().enabled = false;
         yield return new WaitForSeconds(ConsumeTime);
+        isConsuming = false;
         FindTarget();
         GetComponent<Collider>().enabled = true;
     }
-
+    public IEnumerator ConsumePeople(float deltaTime)
+    {
+        nearestTarget = null;
+        isConsuming = true;
+        GetComponent<Collider>().enabled = false;
+        Debug.Log("wait!");
+        yield return new WaitForSeconds(deltaTime);
+        isConsuming = false;
+        FindTarget();
+        GetComponent<Collider>().enabled = true;
+    }
     // 碰到玩家后，玩家死亡
     private void OnTriggerEnter(Collider other)
     {
@@ -74,8 +90,8 @@ public class EnemyMovement : MonoBehaviour
                 other.GetComponent<PlayerMovement>().createDummy(new Vector3(125, 1.5f, 335));
                 Destroy(other.GetComponent<PlayerMovement>());
                 other.GetComponent<Collider>().isTrigger = true;
-                Destroy(other.gameObject,2);
-                StartCoroutine("ConsumeFood");
+                Destroy(other.gameObject, 2);
+                StartCoroutine(ConsumePeople(2));
             }
             else FindTarget();
         }
@@ -105,7 +121,7 @@ public class EnemyMovement : MonoBehaviour
     void FixedUpdate()
     {
         CheckTimer += Time.fixedDeltaTime;
-        if (nearestTarget)
+        if (nearestTarget && !isConsuming)
         {
             Vector3 direction = (nearestTarget.transform.position - transform.position).normalized;
             //追踪
