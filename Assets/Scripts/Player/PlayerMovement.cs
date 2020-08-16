@@ -12,7 +12,6 @@ public class PlayerMovement : MonoBehaviour
     public float MoveSpeed;
     public float initSpeed;
     private bool isJumping;
-    public Transform[] GroundCheck;
     public Transform ThrowCheck;
     public LayerMask GroundLayer;
     public LayerMask ObstacleLayer;
@@ -81,13 +80,6 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (isGround() && player.GetButtonDown("Jump"))
-        {
-            //rb.velocity = new Vector3(rb.velocity.x, 50, rb.velocity.z);
-            rb.velocity += Vector3.up * 10;
-            //rb.AddForce(new Vector3(0, 50, 0), ForceMode.Impulse);
-            isJumping = true;
-        }
         if (player.GetButtonDown("Throw") && CanThrow())
         {
             Debug.Log("Throw Food");
@@ -206,20 +198,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (FindObjectOfType<GamingScene>().Food2 <= 0)
                 isHit = false;
-        }
-        return isHit;
-    }
-    /// 射线检测，判断是否在地面上
-    public bool isGround()
-    {
-        bool isHit = false;
-        foreach (Transform trans in GroundCheck)
-        {
-            Debug.DrawLine(trans.position, new Vector3(trans.position.x, trans.position.y - 0.15f, trans.position.z), Color.blue);
-            if (Physics.Linecast(trans.position, new Vector3(trans.position.x, trans.position.y - 0.15f, trans.position.z), GroundLayer))
-            {
-                isHit = true;
-            }
         }
         return isHit;
     }
