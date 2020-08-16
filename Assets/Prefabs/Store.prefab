@@ -108,3 +108,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodCost: 4
+  buyFood: {fileID: 8300000, guid: b83982af391772442ab537ba760335cf, type: 3}

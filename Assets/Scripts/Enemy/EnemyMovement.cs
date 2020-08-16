@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +25,12 @@ public class EnemyMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         asrc = GetComponent<AudioSource>();
     }
+
+    void Awake()
+    {
+        //asrc.Play(cracks[System.Random.Next(3)]);
+    }
+
     private Collider FindTarget()
     {
         Collider[] foodList = Physics.OverlapBox(gameObject.transform.position, WarningArea, Quaternion.identity, FoodLayer);
@@ -69,22 +76,22 @@ public class EnemyMovement : MonoBehaviour
         transform.localScale *= 2;
         isConsuming = true;
         GetComponent<Collider>().enabled = false;
+        asrc.PlayOneShot(swallow);
         yield return new WaitForSeconds(ConsumeTime);
         isConsuming = false;
         FindTarget();
         GetComponent<Collider>().enabled = true;
-        asrc.PlayOneShot(swallow);
     }
     public IEnumerator ConsumePeople(float deltaTime)
     {
         nearestTarget = null;
         isConsuming = true;
         GetComponent<Collider>().enabled = false;
+        asrc.PlayOneShot(swallow);
         yield return new WaitForSeconds(deltaTime);
         isConsuming = false;
         FindTarget();
         GetComponent<Collider>().enabled = true;
-        asrc.PlayOneShot(swallow);
     }
     // 碰到玩家后，玩家死亡
     private void OnTriggerEnter(Collider other)
