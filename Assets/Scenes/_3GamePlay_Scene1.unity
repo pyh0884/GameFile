@@ -3069,8 +3069,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "WASD: \u63A7\u5236P1\u79FB\u52A8                  \u4E0A\u4E0B\u5DE6\u53F3:
-    \u63A7\u5236P2\u79FB\u52A8\nJ:\u8DF3\u8DC3\t\t\t    \t\t\t\t\t   \u5C0F\u952E\u76D81\uFF1A\u8DF3\u8DC3\nK:\u51B2\u523A\t\t\t   
-    \t\t\t\t\t   \u5C0F\u952E\u76D82\uFF1A\u51B2\u523A"
+    \u63A7\u5236P2\u79FB\u52A8\nJ:\u8DF3\u8DC3\t\t\t    \t\t\t\t\t   \u5C0F\u952E\u76D81\uFF1A\u8DF3\u8DC3\nK:\u98DF\u7269\t\t\t   
+    \t\t\t\t\t   \u5C0F\u952E\u76D82\uFF1A\u98DF\u7269"
 --- !u!222 &1617506380
 CanvasRenderer:
   m_ObjectHideFlags: 0
