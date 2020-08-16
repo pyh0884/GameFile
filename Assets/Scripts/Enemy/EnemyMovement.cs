@@ -12,6 +12,8 @@ public class EnemyMovement : MonoBehaviour
     private float CheckTimer = 2;
     private Collider nearestTarget = null;
     private bool isConsuming;
+    public bool rotating;
+    public float deltaTime = 0.5f;
     private Rigidbody rb;
     public float MoveSpeed;
     public float ConsumeTime = 3;
@@ -27,6 +29,7 @@ public class EnemyMovement : MonoBehaviour
 
     private Collider FindTarget()
     {
+        Collider temp = nearestTarget;
         Collider[] foodList = Physics.OverlapBox(gameObject.transform.position, WarningArea, Quaternion.identity, FoodLayer);
         Collider[] playerList = Physics.OverlapBox(gameObject.transform.position, WarningArea, Quaternion.identity, PlayerLayer);
         if (foodList.Length > 0)
@@ -51,7 +54,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 if (col.GetComponent<PlayerMovement>())
                 {
-                    if (!nearestTarget)
+                    if (!nearestTarget && !col.GetComponent<PlayerMovement>().inShop)
                     {
                         nearestTarget = col;
                     }
@@ -62,6 +65,8 @@ public class EnemyMovement : MonoBehaviour
                 }
             }
         }
+        if (nearestTarget != temp)
+            rotating = true;
         return nearestTarget;
     }
     public IEnumerator ConsumeFood()
@@ -122,6 +127,26 @@ public class EnemyMovement : MonoBehaviour
             asrc.PlayOneShot(swallow);
         }
     }
+
+    float angleSpeed = 180f;
+    float nearEnough = 5f;
+
+    void RotateTowards()
+    {
+        Vector3 targetDirection = nearestTarget.transform.position - transform.position;
+        float idealAngle = Mathf.Rad2Deg * Mathf.Atan2(targetDirection.x, targetDirection.z);
+        float currentAngle = transform.rotation.eulerAngles.y;
+
+        if (Mathf.Abs(Mathf.DeltaAngle(idealAngle, currentAngle)) > nearEnough)
+        {
+            float nextAngle = Mathf.MoveTowardsAngle(currentAngle, idealAngle, angleSpeed * Time.fixedDeltaTime);
+            transform.rotation = Quaternion.Euler(new Vector3(0.0f, nextAngle, 0));
+        }
+        else
+            rotating = false;
+    }
+
+
     private void Update()
     {
         if (CheckTimer > CheckTargetTime)
@@ -129,16 +154,24 @@ public class EnemyMovement : MonoBehaviour
             CheckTimer -= CheckTargetTime;
             FindTarget();
         }
-
+        if (nearestTarget && rotating)
+        {
+            //if (transform.forward.normalized == (nearestTarget.transform.position - transform.position).normalized)
+            //    rotating = true;
+            //transform.forward += (nearestTarget.transform.position - transform.position).normalized * 20 * Time.fixedDeltaTime;
+            RotateTowards();
+        }
     }
     void FixedUpdate()
     {
         CheckTimer += Time.fixedDeltaTime;
-        if (nearestTarget && !isConsuming)
+        if (nearestTarget && !isConsuming && !rotating)
         {
             Vector3 direction = (nearestTarget.transform.position - transform.position).normalized;
+            Debug.DrawRay(transform.position, direction * 30, Color.blue);
             //追踪
             rb.position = (rb.position + direction * MoveSpeed * Time.fixedDeltaTime);
+            transform.LookAt(transform.position + direction);
         }
     }
 }

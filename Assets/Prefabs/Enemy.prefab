@@ -103,6 +103,8 @@ MonoBehaviour:
     m_Bits: 512
   WarningArea: {x: 100, y: 5, z: 100}
   CheckTargetTime: 2
+  rotating: 0
+  deltaTime: 0.5
   MoveSpeed: 10
   ConsumeTime: 3
   swallow: {fileID: 8300000, guid: a584a2262f700744584572359af046bd, type: 3}
