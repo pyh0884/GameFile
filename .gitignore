@@ -47,9 +47,9 @@ ExportedObj/
 *.VC.db
 
 # Unity3D generated meta files
-# *.pidb.meta
-# *.pdb.meta
-# *.mdb.meta
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
 
 # Unity3D generated file on crash reports
 sysinfo.txt
@@ -62,7 +62,3 @@ sysinfo.txt
 crashlytics-build.properties
 
 .DS_Store
-Assets/DOTween/Editor/DOTweenEditor.dll.mdb.meta
-Assets/DOTween/DOTween.dll.mdb.meta
-Packages/packages-lock.json
-Packages/packages-lock.json
